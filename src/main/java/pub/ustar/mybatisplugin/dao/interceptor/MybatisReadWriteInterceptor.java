@@ -25,6 +25,9 @@ import pub.ustar.mybatisplugin.dao.dataSource.SpringRoutingDataSource;
 public class MybatisReadWriteInterceptor implements Interceptor {
 
     private final static Logger log = LoggerFactory.getLogger(MybatisReadWriteInterceptor.class);
+        
+    private String writeDataSourceKey;
+    private String readDataSourceKey;
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -46,6 +49,10 @@ public class MybatisReadWriteInterceptor implements Interceptor {
 
     @Override
     public void setProperties(Properties properties) {
+        String readDataSourceKey = properties.getProperty("readDataSourceKey");
+        String writeDataSourceKey = properties.getProperty("writeDataSourceKey");
+        this.readDataSourceKey = readDataSourceKey;
+        this.writeDataSourceKey = writeDataSourceKey;
         log.debug("参数为：{}", properties.toString());
     }
 }
